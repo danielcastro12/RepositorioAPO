@@ -117,42 +117,6 @@ public class Controller {
         return msg;
     }
 
-
-
-	public String searchProjectsAfterDate(int day, int month, int year) throws ParseException {
-
-		Calendar compareDate = new GregorianCalendar(year, month-1, day);
-
-		String msg = "";
-		for (int i = 0; i < projects.length; i++){
-            if (projects[i] != null){
-				int var = projects[i].getInitialDate().compareTo(compareDate);
-				if (var == 1){
-					msg += projects[i].getProjectInfo() + "\n";
-				}
-            }
-        }
-  
-		return msg;
-	}
-
-	public String searchProjectsBeforeDate(int day, int month, int year) throws ParseException {
-		
-		Calendar compareDate = new GregorianCalendar(year, month-1, day);
-
-		String msg = "";
-		for (int i = 0; i < projects.length; i++){
-            if (projects[i] != null){
-				int var = projects[i].getFinalDate().compareTo(compareDate);
-				if (var == -1){
-					msg += projects[i].getProjectInfo() + "\n";
-				}
-            }
-        }
-  
-		return msg;
-	}
-
     /**
      * Description: This method uses the parameters to calculate the unit type, the stage name and it creates a new knowledge unit in an available space inside the stage selected
      * @param projectName String
@@ -175,7 +139,15 @@ public class Controller {
             typeKU = UnitType.TECHNICAL;
         }
 
-        else{
+        if(type == 2){
+            typeKU = UnitType.MANAGEMENT;
+        }
+
+        if(type == 3){
+            typeKU = UnitType.DOMAIN;
+        }
+
+        if(type == 4){
             typeKU = UnitType.EXPERIENCES;
         }
 
@@ -393,27 +365,6 @@ public class Controller {
         return msg;
     }
 
-    public String getAllKnowledgeUnits() {
-
-        String msg = "";
-
-        for(int i = 0; i < projects.length; i++){
-            if(projects[i] != null){
-                for(int x = 0; x < projects[i].getStages().length; x++){
-                    if(projects[i].getStages()[x] != null){
-                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
-                            if(projects[i].getStages()[x].getUnits()[y] != null){
-                                msg += projects[i].getStages()[x].getUnits()[y].toString() + "\n";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        return msg;
-    }
-
     /**
      * Description: This method compares the parameter with the name of a project on a stage, and if its found, it returns as a string
      * @param projectName String
@@ -505,16 +456,6 @@ public class Controller {
         return msg;
     }
 
-    public String getProjectInformation() throws ParseException{
-        String msg = "";
-        for(int i = 0; i < projects.length; i++){
-            if(projects[i] != null){
-                msg += projects[i].getProjectInfo() + "\n";
-            }
-        }
-        return msg;
-    }
-
     /**
      * Description: This method allows to get the name of the projects found in the array
      * @return msg String
@@ -525,6 +466,243 @@ public class Controller {
         for(int i = 0; i < projects.length; i++){
             if(projects[i] != null){
                 msg += projects[i].getName() + "\n";
+            }
+        }
+        return msg;
+    }
+
+    /**
+     * Description: This method allows to get the number of technical units
+     * @return number int
+     */
+
+    public int getTechnicalUnits(){
+        int number = 0;
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                            if(projects[i].getStages()[x].getUnits()[y] != null){
+                                if(projects[i].getStages()[x].getUnits()[y].getUnitType().equals(UnitType.TECHNICAL)){
+                                    number += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
+    /**
+     * Description: This method allows to get the number of management units
+     * @return number int
+     */
+
+    public int getManagementUnits(){
+        int number = 0;
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                            if(projects[i].getStages()[x].getUnits()[y] != null){
+                                if(projects[i].getStages()[x].getUnits()[y].getUnitType().equals(UnitType.MANAGEMENT)){
+                                    number += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
+    /**
+     * Description: This method allows to get the number of domain units
+     * @return number int
+     */
+
+    public int getDomainUnits(){
+        int number = 0;
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                            if(projects[i].getStages()[x].getUnits()[y] != null){
+                                if(projects[i].getStages()[x].getUnits()[y].getUnitType().equals(UnitType.DOMAIN)){
+                                    number += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
+    /**
+     * Description: This method allows to get the number of experiences units
+     * @return number int
+     */
+
+    public int getExperiencesUnits(){
+        int number = 0;
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                            if(projects[i].getStages()[x].getUnits()[y] != null){
+                                if(projects[i].getStages()[x].getUnits()[y].getUnitType().equals(UnitType.EXPERIENCES)){
+                                    number += 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
+    /**
+     * Description: This method allows to get the learned lessons of a specific stage for all projects
+     * @param unitStage int 
+     * @return msg String
+     */
+
+    public String getLearnedLessonsByStageAllProjects(int unitStage){
+
+        StageName stageKU = StageName.START;
+
+        if(unitStage == 1){
+            stageKU = StageName.START;
+        }
+
+        if(unitStage == 2){
+            stageKU = StageName.ANALYSIS;
+        }
+
+        if(unitStage == 3){
+            stageKU = StageName.DESIGN;
+        }
+
+        if(unitStage == 4){
+            stageKU = StageName.EXECUTION;
+        }
+
+        if(unitStage == 5){
+            stageKU = StageName.CLOSURE_AND_FOLLOW_UP;
+        }
+
+        if(unitStage == 6){
+            stageKU = StageName.PROYECT_CONTROL;
+        }
+
+        String msg = "";
+
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        if(projects[i].getStages()[x].getStageName().equals(stageKU)){
+                            for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                                if(projects[i].getStages()[x].getUnits()[y] != null){
+                                    msg += projects[i].getStages()[x].getProjectName() + " (" + projects[i].getStages()[x].getStageName() + "): " + projects[i].getStages()[x].getUnits()[y].getDescription() + "\n";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return msg;
+    }
+
+    /**
+     * Description: This method allows to get the name of the project with most knowledge units registered
+     * @return msg String
+     */
+
+    public String getProjectWithMostUnits(){
+
+        String msg = "";
+        int max = 0; 
+
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                if(projects[i].getNumberKnowledgeUnits() > max){
+                    max = projects[i].getNumberKnowledgeUnits();
+                    msg = projects[i].getName() + " (" + projects[i].getNumberKnowledgeUnits() + ")";
+                }
+            }
+        }
+        return msg;
+    }
+
+    /**
+     * Description: This method allows to get the knowledge units that an employee has registered on a specific project
+     * @param name String
+     * @param project String
+     * @return msg String
+     */
+
+    public String getUnitInProjectByEmployee(String name, String project){
+
+        String msg = "";
+
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                if(projects[i].getName().equals(project)){
+                    for(int x = 0; x < projects[i].getStages().length; x++){
+                        if(projects[i].getStages()[x] != null){
+                            for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                                if(projects[i].getStages()[x].getUnits()[y] != null){
+                                    if(projects[i].getStages()[x].getUnits()[y].getEmployeeName().equals(name) ){
+                                        msg += projects[i].getStages()[x].getUnits()[y].toString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return msg;
+    }
+
+    /**
+     * Description: This method allows to get the information of a project based on a keyword provided by the user
+     * @param keyword String
+     * @return msg String
+     */
+
+    public String getLearnedLessonsByHashtags(String keyword){
+
+        String msg = "";
+
+        for(int i = 0; i < projects.length; i++){
+            if(projects[i] != null){
+                for(int x = 0; x < projects[i].getStages().length; x++){
+                    if(projects[i].getStages()[x] != null){
+                        for(int y = 0; y < projects[i].getStages()[x].getUnits().length; y++){
+                            if(projects[i].getStages()[x].getUnits()[y] != null){
+                                if(projects[i].getStages()[x].getUnits()[y].getStatus().equals(Status.APPROVED)){
+                                    if(projects[i].getStages()[x].getUnits()[y].getDescription().contains(keyword) || projects[i].getStages()[x].getUnits()[y].getLearnedLessons().contains(keyword)){
+                                        msg += projects[i].getStages()[x].getUnits()[y].toString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         return msg;

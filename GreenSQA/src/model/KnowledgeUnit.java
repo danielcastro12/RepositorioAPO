@@ -43,6 +43,22 @@ public class KnowledgeUnit {
         this.id = id;
     }
 
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+
+    }
+    public String getEmployeesJob() {
+        return employeesJob;
+    }
+
+    public void setEmployeesJob(String employeesJob) {
+        this.employeesJob = employeesJob;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -101,7 +117,7 @@ public class KnowledgeUnit {
 
     public String toString(){
         String msg ="";
-        msg = "ID: " + id + "\nDescription: " + description + "\nUnit ype: " + unitType + "\nLearned lessons: " + learnedLessons + "\nStatus: " + status + "\nPublishing status: " + publishingStatus + "\nURL: " + url + "\n";
+        msg = "ID: " + id + "\nDescription: " + description + "\nUnit type: " + unitType + "\nLearned lessons: " + learnedLessons + "\nStatus: " + status + "\nPublishing status: " + publishingStatus + "\nURL: " + url + "\n";
         return msg;
     }
 }

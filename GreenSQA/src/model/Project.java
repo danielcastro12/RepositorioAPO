@@ -155,6 +155,25 @@ public class Project{
         this.stages = stages;
     }
 
+    /**
+     * Description: This method allows to get the number of knowledge units registered in a project
+     * @return number int
+     */
+
+    public int getNumberKnowledgeUnits(){
+        int number = 0;
+        for(int x = 0; x < getStages().length; x++){
+            if(getStages()[x] != null){
+                for(int y = 0; y < getStages()[x].getUnits().length; y++){
+                    if(getStages()[x].getUnits()[y] != null){
+                        number += 1; 
+                    }
+                }
+            }
+        }
+        return number;
+    }
+
 	public String getProjectInfo() throws ParseException{
 		return "\nName: " + name + "\nClient: " + clientName + "\nProject type: " + projectType + "\nInitial Date: " + getInitialDateFormated() + 
 		"\nFinal Date: " + getFinalDateFormated() + "\nTotalBudget: $" + budget + "\nGreen manager name: " + greenManagerName + 
